@@ -18,14 +18,17 @@
 /* ------------------------------------------------------------
 2. General Styles
 ------------------------------------------------------------ */
+
+/* Fresh football portfolio palette */
 :root {
-  --lk-primary: #050816;       /* Main background */
-  --lk-surface: #0b1020;       /* Cards / page panels */
-  --lk-surface-alt: #111827;   /* Header / side elements */
-  --lk-border: #1f2937;
-  --lk-accent: #facc15;        /* Gold highlight */
-  --lk-text-main: #f9fafb;
-  --lk-text-muted: #9ca3af;
+  --lk-primary: #020617;      /* Page background – deep stadium night */
+  --lk-surface: #0f172a;      /* Main content panels / cards */
+  --lk-surface-alt: #1e293b;  /* Header / side sections */
+  --lk-border: #1f3b4d;       /* Subtle cool borders */
+  --lk-accent: #00c8ff;       /* Secondary accent – electric blue */
+  --lk-accent-alt: #94a3b8;   /* Muted text – slate grey */
+  --lk-text-main: #f9fafb;    /* Primary text – clean white */
+  --lk-text-muted:#ffc107;    /* Main accent – trophy gold */
 }
 
 html {
@@ -91,7 +94,7 @@ a {
 }
 
 a:hover {
-  color: #fde047;
+  color: #1d4ed8; /* deeper blue on hover */
 }
 
 p {
@@ -128,9 +131,9 @@ p {
   margin: 10vh auto;
   padding: 0;
   background-color: var(--lk-surface);
-  -webkit-box-shadow: 0 0 100px -5px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0 0 100px -5px rgba(0, 0, 0, 0.6);
-  box-shadow: 0 0 100px -5px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0 0 80px -20px rgba(15, 23, 42, 0.35);
+  -moz-box-shadow: 0 0 80px -20px rgba(15, 23, 42, 0.35);
+  box-shadow: 0 0 80px -20px rgba(15, 23, 42, 0.35);
   border-radius: 32px;
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
@@ -154,9 +157,9 @@ input[type="submit"],
   border: 0;
   outline: 0;
   border: 2px solid var(--lk-accent);
-  color: #111827;
+  color: #eff6ff;
   text-shadow: none;
-  background-color: var(--lk-accent);
+  background-color: var(--lk-surface-alt);
   border-radius: 30px;
   font-family: "Poppins", sans-serif;
   text-transform: uppercase;
@@ -166,7 +169,7 @@ input[type="submit"],
   -o-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0px 12px 30px rgba(250, 204, 21, 0.35);
+  box-shadow: 0px 10px 26px rgba(37, 99, 235, 0.4);
 }
 
 .btn-primary:last-child,
@@ -186,24 +189,24 @@ input[type="button"]:hover,
 input[type="button"]:focus,
 input[type="submit"]:hover,
 input[type="submit"]:focus {
-  background-color: #fde047;
-  color: #020617;
-  border-color: #fde047;
-  box-shadow: 0px 16px 40px rgba(250, 204, 21, 0.45);
+  background-color: #1d4ed8;
+  color: #f9fafb;
+  border-color: #1d4ed8;
+  box-shadow: 0px 14px 32px rgba(37, 99, 235, 0.55);
 }
 
 .btn-secondary {
-  border-color: #4b5563;
-  background-color: transparent;
+  border-color: var(--lk-border);
+  background-color: #ffffff;
   color: var(--lk-text-muted);
-  box-shadow: 0px 10px 20px rgba(15, 23, 42, 0.7);
+  box-shadow: 0px 8px 18px rgba(15, 23, 42, 0.16);
 }
 
 .btn-secondary:hover,
 .btn-secondary:focus {
   color: var(--lk-text-main);
-  border-color: #6b7280;
-  background-color: #111827;
+  border-color: #94a3b8;
+  background-color: #f9fafb;
 }
 
 .animated {
@@ -290,7 +293,7 @@ input[type="submit"]:focus {
     text-align: center;
     padding: 70px 30px 45px;
     overflow: auto;
-    background: rgba(5, 8, 22, 0.96);
+    background: #ffc107; /* trophy gold header background */
     border-right: 1px solid var(--lk-border);
     -webkit-transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
@@ -314,9 +317,9 @@ input[type="submit"]:focus {
     z-index: 999;
     list-style: none;
     top: 0;
-    -webkit-box-shadow: 0 0 30px -5px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 0 0 30px -5px rgba(0, 0, 0, 0.5);
-    box-shadow: 0 0 30px -5px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0 0 30px -5px rgba(15, 23, 42, 0.4);
+    -moz-box-shadow: 0 0 30px -5px rgba(15, 23, 42, 0.4);
+    box-shadow: 0 0 30px -5px rgba(15, 23, 42, 0.4);
   }
 
   ul.main-menu a {
@@ -385,9 +388,9 @@ input[type="submit"]:focus {
   z-index: 98;
   list-style: none;
   bottom: 0;
-  -webkit-box-shadow: 0 0 30px -5px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 0 0 30px -5px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0 30px -5px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 30px -5px rgba(15, 23, 42, 0.4);
+  -moz-box-shadow: 0 0 30px -5px rgba(15, 23, 42, 0.4);
+  box-shadow: 0 0 30px -5px rgba(15, 23, 42, 0.4);
 }
 
 .lmpixels-arrows-nav div {
@@ -418,14 +421,14 @@ input[type="submit"]:focus {
 
 .header-photo img {
   max-width: 100%;
-  background-color: var(--lk-surface-alt);
-  border: 3px solid rgba(250, 204, 21, 0.5);
+  background-color: #020617;
+  border: 3px solid rgba(37, 99, 235, 0.6);
   border-radius: 35px;
 }
 
 .header-photo:after {
   position: absolute;
-  opacity: 0.35;
+  opacity: 0.3;
   top: 7%;
   left: 7%;
   border-radius: 35px;
@@ -434,22 +437,22 @@ input[type="submit"]:focus {
   width: calc(100% + 0px);
   background-image: -webkit-repeating-radial-gradient(
     center center,
-    rgba(148, 163, 184, 0.55),
-    rgba(148, 163, 184, 0.55) 1px,
+    #1e293b,
+    #1e293b 1px,
     transparent 0px,
     transparent 100%
   );
   background-image: -moz-repeating-radial-gradient(
     center center,
-    rgba(148, 163, 184, 0.55),
-    rgba(148, 163, 184, 0.55) 1px,
+    #1e293b,
+    #1e293b 1px,
     transparent 0px,
     transparent 100%
   );
   background-image: -ms-repeating-radial-gradient(
     center center,
-    rgba(148, 163, 184, 0.55),
-    rgba(148, 163, 184, 0.55) 1px,
+    #1e293b,
+    #1e293b 1px,
     transparent 0px,
     transparent 100%
   );
@@ -466,14 +469,14 @@ input[type="submit"]:focus {
   font-family: "Bebas Neue", sans-serif;
   font-weight: 900;
   font-style: normal;
-  color: var(--lk-text-main);
+  color: #f9fafb;
   margin-top: -20px;
 }
 
 .header-titles h4 {
   font-size: 18px;
   font-weight: 600;
-  color: var(--lk-accent);
+  color: #1e293b;
   margin: 5px 0 20px;
   line-height: 1.2em;
   margin-top: -5px;
@@ -514,7 +517,7 @@ input[type="submit"]:focus {
 }
 
 .header .copyrights {
-  color: var(--lk-text-muted);
+  color: #1e293b;
   width: 380px;
   position: absolute;
   bottom: 0;
@@ -596,7 +599,7 @@ input[type="submit"]:focus {
 }
 
 .ps > .ps__scrollbar-y-rail > .ps__scrollbar-y {
-  background-color: #4b5563;
+  background-color: #cbd5e1;
 }
 
 .ps:hover > .ps__scrollbar-y-rail:hover > .ps__scrollbar-y {
@@ -877,7 +880,7 @@ h4 {
 .portfolio-grid figure .portfolio-item-img:after {
   content: "";
   position: absolute;
-  background-color: rgba(15, 23, 42, 0.55);
+  background-color: rgba(15, 23, 42, 0.45);
   top: 0;
   right: 0;
   bottom: 0;
@@ -1112,7 +1115,7 @@ h4 {
     position: absolute;
     height: 3px;
     width: 50%;
-    background: #020617;
+    background: #ffffff;
     border-radius: 5px;
     opacity: 1;
     left: 25%;
@@ -1333,9 +1336,9 @@ h4 {
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(circle at 0% 0%, rgba(250, 204, 21, 0.08), transparent 55%),
-    linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(3, 7, 18, 0.98));
-  mix-blend-mode: multiply;
+    radial-gradient(circle at 10% 0%, rgba(37, 99, 235, 0.16), transparent 55%),
+    radial-gradient(circle at 90% 100%, rgba(34, 197, 94, 0.2), transparent 60%),
+    linear-gradient(135deg, #e5f0ff 0%, #f9fafb 40%, #e5f0ff 100%);
   pointer-events: none;
   z-index: -1;
 }
@@ -1416,7 +1419,7 @@ h4 {
   right: 0;
   left: 0;
   bottom: 0;
-  background: rgba(15, 23, 42, 0.7);
+  background: rgba(15, 23, 42, 0.35);
   background-color: transparent;
 }
 
@@ -1430,9 +1433,9 @@ h4 {
   padding: 25px 10px 15px;
   border: 1px solid rgba(148, 163, 184, 0.35);
   border-radius: 18px;
-  -webkit-box-shadow: 0 18px 35px rgba(15, 23, 42, 0.8);
-  -moz-box-shadow: 0 18px 35px rgba(15, 23, 42, 0.8);
-  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.8);
+  -webkit-box-shadow: 0 12px 24px rgba(15, 23, 42, 0.25);
+  -moz-box-shadow: 0 12px 24px rgba(15, 23, 42, 0.25);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.25);
   overflow: hidden;
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
@@ -1446,9 +1449,9 @@ h4 {
   -ms-transform: translateY(-5px);
   -o-transform: translateY(-5px);
   transform: translateY(-5px);
-  -webkit-box-shadow: 0 22px 40px rgba(15, 23, 42, 0.95);
-  -moz-box-shadow: 0 22px 40px rgba(15, 23, 42, 0.95);
-  box-shadow: 0 22px 40px rgba(15, 23, 42, 0.95);
+  -webkit-box-shadow: 0 18px 32px rgba(15, 23, 42, 0.35);
+  -moz-box-shadow: 0 18px 32px rgba(15, 23, 42, 0.35);
+  box-shadow: 0 18px 32px rgba(15, 23, 42, 0.35);
 }
 
 .player-stat.gray-bg {
