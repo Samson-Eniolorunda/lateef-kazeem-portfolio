@@ -1072,12 +1072,14 @@ h4 {
 }
 
 @media only screen and (max-width: 1024px) {
+  /* Anchor the mobile sidebar to the left rather than the right. */
   .header {
     position: absolute;
     width: 100%;
     max-width: 330px;
     top: 0;
-    right: 0;
+    left: 0;
+    right: auto;
     bottom: 0;
     background-color: var(--lk-text-muted);
     z-index: 99;
@@ -1086,11 +1088,13 @@ h4 {
     opacity: 1;
     visibility: visible;
     overflow: auto;
-    -webkit-transition: all 0.25s ease-in-out;
-    -moz-transition: all 0.25s ease-in-out;
-    -o-transition: all 0.25s ease-in-out;
-    -ms-transition: all 0.25s ease-in-out;
-    transition: all 0.25s ease-in-out;
+    /* Use transform so that toggling mobile-menu-hide slides the sidebar */
+    -webkit-transition: transform 0.25s ease-in-out;
+    -moz-transition: transform 0.25s ease-in-out;
+    -o-transition: transform 0.25s ease-in-out;
+    -ms-transition: transform 0.25s ease-in-out;
+    transition: transform 0.25s ease-in-out;
+    transform: translateX(0);
   }
 
   .header .copyrights {
@@ -1135,16 +1139,19 @@ h4 {
     margin-bottom: 25px;
   }
 
+  /* When hidden, slide the sidebar completely off the left side using translateX. */
   .mobile-menu-hide {
     width: 0;
-    right: 0;
-    margin-right: -100%;
+    margin: 0;
+    left: 0;
+    right: auto;
     overflow: hidden;
     opacity: 0;
     visibility: hidden;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
+    transform: translateX(-100%);
   }
 
   ul.main-menu {
@@ -1620,3 +1627,37 @@ h4 {
   border-left: 3px solid var(--lk-accent);
   padding-left: 0.9rem;
 }
+
+/* ------------------------------------------------------------
+ * Mobile hero photo
+ *
+ * When viewing on small screens, display the player's portrait
+ * above the hero title. It remains hidden on larger screens.
+ */
+.mobile-hero-photo {
+  display: none;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.mobile-hero-photo img {
+  width: 160px;
+  max-width: 70%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  background-color: #020617;
+  border: 3px solid rgba(37, 99, 235, 0.6);
+  border-radius: 28px;
+}
+
+@media only screen and (max-width: 1024px) {
+  .mobile-hero-photo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 20px auto 25px;
+  }
+}
+
