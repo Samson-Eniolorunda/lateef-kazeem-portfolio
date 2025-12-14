@@ -1059,12 +1059,9 @@ h4 {
 }
 
 @media only screen and (max-width: 1024px) {
-  /* Show icons inside the navigation on mobile view and adjust size */
+  /* don't show icons inside the navigation on mobile view */
   .main-menu .material-symbols-outlined {
-    display: inline-block;
-    font-size: 20px;
-    margin-right: 4px;
-    vertical-align: middle;
+    display: none;
   }
 
   /* Adjust portfolio overlay label and icon sizes for small screens */
