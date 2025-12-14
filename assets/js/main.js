@@ -1,318 +1,187 @@
-/*
-* Template Name: BreezyCV - Resume / CV / vCard / Portfolio Template
-* Author: LMPixels
-* Author URL: http://themeforest.net/user/lmpixels
-* Version: 1.2.0
-*/
+//--------------------------------------------------
+// Main JS File
+// Title: Lateef Kazeem - Resume / CV / Portfolio
+// Author: Samson Eniolorunda
+// Author URL: https://github.com/Samson-Eniolorunda
+//-------------------------------------------------- 
 
 (function($) {
 "use strict";
-    // Portfolio subpage filters
-    function portfolio_init() {
-        var portfolio_grid = $('.portfolio-grid'),
-            portfolio_filter = $('.portfolio-filters');
-            
-        if (portfolio_grid) {
-
-            portfolio_grid.shuffle({
-                speed: 450,
-                itemSelector: 'figure'
-            });
-
-            portfolio_filter.on("click", ".filter", function (e) {
-                portfolio_grid.shuffle('update');
-                e.preventDefault();
-                $('.portfolio-filters .filter').parent().removeClass('active');
-                $(this).parent().addClass('active');
-                portfolio_grid.shuffle('shuffle', $(this).attr('data-group') );
-            });
-
-        }
-    }
-    // /Portfolio subpage filters
-
-
-    // Hide Mobile menu
-    function mobileMenuHide() {
-        var windowWidth = $(window).width(),
-            siteHeader = $('#site_header');
-
-        if (windowWidth < 1025) {
-            siteHeader.addClass('mobile-menu-hide');
-            $('.menu-toggle').removeClass('open');
-            setTimeout(function(){
-                siteHeader.addClass('animate');
-            }, 500);
+    //--------------------------------------------------
+    //  Helper Functions
+    //--------------------------------------------------
+    
+    /**
+     * Toggles the mobile menu class on the site header depending on window width.
+     * Adds the 'mobile-menu-hide' class when the window is narrower than 1025px,
+     * removes it when wider. This controls whether the sidebar is visible on
+     * smaller screens.
+     */
+    function updateMobileMenu() {
+        if ($(window).width() < 1025) {
+            $('#site_header').addClass('mobile-menu-hide');
         } else {
-            siteHeader.removeClass('animate');
+            $('#site_header').removeClass('mobile-menu-hide');
         }
     }
-    // /Hide Mobile menu
 
-    // Custom scroll
+    /**
+     * Initializes or destroys custom scrollbars via Perfect Scrollbar.
+     * On desktop (>1024px) it attaches a custom scrollbar to each `.animated-section`
+     * and `.single-page-content` element. On mobile it destroys the instance to
+     * revert to native scrolling. Perfect Scrollbar keeps the DOM unchanged
+     * while allowing full CSS customization【792937508828208†L6-L13】.
+     */
     function customScroll() {
-        var windowWidth = $(window).width();
-        if (windowWidth > 1024) {
-            $('.animated-section, .single-page-content').each(function() {
-                $(this).perfectScrollbar();
-            });
-        } else {
-            $('.animated-section, .single-page-content').each(function() {
-                $(this).perfectScrollbar('destroy');
-            });
-        }
-    }
-    // /Custom scroll
-
-    // Contact form validator
-    $(function () {
-
-        $('#contact_form').validator();
-
-        $('#contact_form').on('submit', function (e) {
-            if (!e.isDefaultPrevented()) {
-                var url = "contact_form/contact_form.php";
-
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: $(this).serialize(),
-                    success: function (data)
-                    {
-                        var messageAlert = 'alert-' + data.type;
-                        var messageText = data.message;
-
-                        var alertBox = '<div class="alert ' + messageAlert + ' alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + messageText + '</div>';
-                        if (messageAlert && messageText) {
-                            $('#contact_form').find('.messages').html(alertBox);
-                            $('#contact_form')[0].reset();
-                        }
-                    }
-                });
-                return false;
+        var isDesktop = $(window).width() > 1024;
+        $('.animated-section, .single-page-content').each(function () {
+            var $el = $(this);
+            if (isDesktop) {
+                if (!$el.data('perfectScrollbar')) {
+                    $el.perfectScrollbar();
+                } else {
+                    $el.perfectScrollbar('update');
+                }
+            } else {
+                if ($el.data('perfectScrollbar')) {
+                    $el.perfectScrollbar('destroy');
+                }
             }
         });
-    });
-    // /Contact form validator
+    }
 
-    //On Window load & Resize
+    /**
+     * Sets up click handlers for portfolio category filters.
+     * Clicking a filter link highlights it and shows only the matching items.
+     * Without the Shuffle plugin, items are simply shown/hidden via their
+     * `data-groups` attribute.
+     */
+    function portfolio_init() {
+        var $filters = $('.portfolio-filters .filter');
+        var $items = $('.portfolio-grid figure');
+
+        $filters.on('click', function (e) {
+            e.preventDefault();
+            var group = $(this).attr('data-group');
+            $filters.parent().removeClass('active');
+            $(this).parent().addClass('active');
+            if (group === 'category_all') {
+                $items.show();
+            } else {
+                $items.hide();
+                $('.portfolio-grid figure[data-groups*="' + group + '"]').show();
+            }
+        });
+    }
+
+    //--------------------------------------------------
+    //  Window Events
+    //--------------------------------------------------
+
+    // On window load
     $(window)
-        .on('load', function() { //Load
-            // Animation on Page Loading
-            $(".preloader").fadeOut( 800, "linear" );
+        .on('load', function () {
+            // Fade out the preloader once the page is loaded
+            $(".preloader").fadeOut(800, "linear");
 
-            // initializing page transition.
+            // Initialize page transitions (slide animations between sections)
             var ptPage = $('.animated-sections');
             if (ptPage[0]) {
-                PageTransitions.init({
-                    menu: 'ul.main-menu',
-                });
+                PageTransitions.init({ menu: 'ul.main-menu' });
             }
         })
-        .on('resize', function() { //Resize
-             mobileMenuHide();
-             $('.animated-section').each(function() {
-                $(this).perfectScrollbar('update');
-            });
+        .on('resize', function () {
+            // Recalculate mobile menu state and update custom scrollbars
+            updateMobileMenu();
             customScroll();
         });
 
 
-    // On Document Load
-    $(document).on('ready', function() {
+    //--------------------------------------------------
+    //  Document Ready
+    //--------------------------------------------------
+    $(document).on('ready', function () {
+        // Parallax mouse move effect for the animated background
         var movementStrength = 23;
         var height = movementStrength / $(document).height();
         var width = movementStrength / $(document).width();
-        $("body").on('mousemove', function(e){
+        $("body").on('mousemove', function (e) {
             var pageX = e.pageX - ($(document).width() / 2),
                 pageY = e.pageY - ($(document).height() / 2),
                 newvalueX = width * pageX * -1,
                 newvalueY = height * pageY * -1,
                 elements = $('.lm-animated-bg');
-
             elements.addClass('transition');
             elements.css({
                 "background-position": "calc( 50% + " + newvalueX + "px ) calc( 50% + " + newvalueY + "px )",
             });
-
-            setTimeout(function() {
+            setTimeout(function () {
                 elements.removeClass('transition');
             }, 300);
-        })
+        });
 
-        // Mobile menu
-        $('.menu-toggle').on("click", function () {
-            $('#site_header').addClass('animate');
+        // Toggle sidebar visibility on burger menu click
+        $('.menu-toggle').on('click', function () {
             $('#site_header').toggleClass('mobile-menu-hide');
-            $('.menu-toggle').toggleClass('open');
+            $(this).toggleClass('open');
         });
 
-        // Mobile menu hide on main menu item click
-        $('.main-menu').on("click", "a", function (e) {
-            mobileMenuHide();
+        // Hide the mobile menu when a navigation link is selected
+        $('.main-menu').on('click', 'a', function () {
+            $('#site_header').addClass('mobile-menu-hide');
+            $('.menu-toggle').removeClass('open');
         });
 
-        // Sidebar toggle
-        $('.sidebar-toggle').on("click", function () {
-            $('#blog-sidebar').toggleClass('open');
-        });
-
-        // Initialize Portfolio grid
+        // Initialize portfolio filtering after all images have loaded
         var $portfolio_container = $(".portfolio-grid");
         $portfolio_container.imagesLoaded(function () {
-            portfolio_init(this);
+            portfolio_init();
         });
 
-        // Blog grid init
-        var $container = $(".blog-masonry");
-        $container.imagesLoaded(function(){
-            $container.masonry();
-        });
+        // Show portfolio overlay icons only on hover
+        $('.portfolio-item-img .category, .portfolio-item-img .lz-icon').hide();
+        $('.portfolio-item-img').hover(
+            function () {
+                $(this).find('.category, .lz-icon').show();
+            },
+            function () {
+                $(this).find('.category, .lz-icon').hide();
+            }
+        );
 
+        // Perform initial setup for mobile menu and scrollbars
+        updateMobileMenu();
         customScroll();
 
-        // Text rotation
-        $('.text-rotation').owlCarousel({
-            loop: true,
-            dots: false,
-            nav: false,
-            margin: 0,
-            items: 1,
-            autoplay: true,
-            autoplayHoverPause: false,
-            autoplayTimeout: 3800,
-            animateOut: 'animated-section-scaleDown',
-            animateIn: 'animated-section-scaleUp'
-        });
-
-        // Testimonials Slider
-        $(".testimonials.owl-carousel").imagesLoaded(function(){
-            $(".testimonials.owl-carousel").owlCarousel({
-                nav: true, // Show next/prev buttons.
-                items: 3, // The number of items you want to see on the screen.
-                loop: false, // Infinity loop. Duplicate last and first items to get loop illusion.
-                navText: false,
-                autoHeight: true,
-                margin: 25,
-                responsive : {
-                    // breakpoint from 0 up
-                    0 : {
-                        items: 1,
-                    },
-                    // breakpoint from 480 up
-                    480 : {
-                        items: 1,
-                    },
-                    // breakpoint from 768 up
-                    768 : {
-                        items: 2,
-                    },
-                    1200 : {
-                        items: 2,
-                    }
-                }
-            });
-        });
-
-        // Clients Slider
-        $(".clients.owl-carousel").imagesLoaded().owlCarousel({
-            nav: true, // Show next/prev buttons.
-            items: 2, // The number of items you want to see on the screen.
-            loop: false, // Infinity loop. Duplicate last and first items to get loop illusion.
-            navText: false,
-            margin: 10,
-            autoHeight: true,
-            responsive : {
-                // breakpoint from 0 up
-                0 : {
-                    items: 2,
-                },
-                // breakpoint from 768 up
-                768 : {
-                    items: 4,
-                },
-                1200 : {
-                    items: 5,
-                }
-            }
-        });
-
-
-        //Form Controls
-        $('.form-control')
-            .val('')
-            .on("focusin", function(){
-                $(this).parent('.form-group').addClass('form-group-focus');
-            })
-            .on("focusout", function(){
-                if($(this).val().length === 0) {
-                    $(this).parent('.form-group').removeClass('form-group-focus');
-                }
-            });
-
-        // Lightbox init
+        // Initialize Magnific Popup for images and iframes
         $('body').magnificPopup({
             delegate: 'a.lightbox',
             type: 'image',
             removalDelay: 300,
-
-            // Class that is added to popup wrapper and background
-            // make it unique to apply your CSS animations just to this exact popup
             mainClass: 'mfp-fade',
             image: {
-                // options for image content type
                 titleSrc: 'title',
-                gallery: {
-                    enabled: true
-                },
+                gallery: { enabled: true }
             },
-
             iframe: {
-                markup: '<div class="mfp-iframe-scaler">'+
-                        '<div class="mfp-close"></div>'+
-                        '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
-                        '<div class="mfp-title mfp-bottom-iframe-title"></div>'+
-                      '</div>', // HTML markup of popup, `mfp-close` will be replaced by the close button
-
+                markup: '<div class="mfp-iframe-scaler">' +
+                        '<div class="mfp-close"></div>' +
+                        '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>' +
+                        '<div class="mfp-title mfp-bottom-iframe-title"></div>' +
+                      '</div>',
                 patterns: {
-                    youtube: {
-                      index: 'youtube.com/', // String that detects type of video (in this case YouTube). Simply via url.indexOf(index).
-
-                      id: null, // String that splits URL in a two parts, second part should be %id%
-                      // Or null - full URL will be returned
-                      // Or a function that should return %id%, for example:
-                      // id: function(url) { return 'parsed id'; }
-
-                      src: '%id%?autoplay=1' // URL that will be set as a source for iframe.
-                    },
-                    vimeo: {
-                      index: 'vimeo.com/',
-                      id: '/',
-                      src: '//player.vimeo.com/video/%id%?autoplay=1'
-                    },
-                    gmaps: {
-                      index: '//maps.google.',
-                      src: '%id%&output=embed'
-                    }
+                    youtube: { index: 'youtube.com/', id: null, src: '%id%?autoplay=1' },
+                    vimeo: { index: 'vimeo.com/', id: '/', src: '//player.vimeo.com/video/%id%?autoplay=1' },
+                    gmaps: { index: '//maps.google.', src: '%id%&output=embed' }
                 },
-
-                srcAction: 'iframe_src', // Templating object key. First part defines CSS selector, second attribute. "iframe_src" means: find "iframe" and set attribute "src".
+                srcAction: 'iframe_src'
             },
-
             callbacks: {
-                markupParse: function(template, values, item) {
-                 values.title = item.el.attr('title');
+                markupParse: function (template, values, item) {
+                    values.title = item.el.attr('title');
                 }
-            },
+            }
         });
-
-        //Google Maps
-        //$("#map").googleMap({
-        //    zoom: 16 // Google Map ZOOM. You can change this value
-        //});
-        //$("#map").addMarker({
-        //    address: "S601 Townsend Street, San Francisco, California, USA", // Your Address. Change it
-        //});
     });
 
 })(jQuery);

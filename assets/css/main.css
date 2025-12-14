@@ -1,34 +1,33 @@
-/* ------------------------------------------------------------
-1. Fonts
-2. General Styles
-3. Page loading animation
-4. Header
-5. Page Content
-6. Elements
-7. Media Queries
-8. Updates
+/* -----------------------------------------------------------
+* Main CSS File 
+* Title: Lateef Kazeem - Resume / CV / Portfolio 
+* Author: Samson Eniolorunda
+* Author URL: https://github.com/Samson-Eniolorunda 
 ------------------------------------------------------------ */
 
 /* ------------------------------------------------------------
-1. Fonts
+1. General Styles
+2. Page loading animation
+3. Header
+4. Page Content
+5. Elements
+6. Media Queries
+7. Updates
 ------------------------------------------------------------ */
-/* Google Icon fonts */
-@import url("icons/google icons/google.css");
 
 /* ------------------------------------------------------------
-2. General Styles
+1. General Styles
 ------------------------------------------------------------ */
 
 /* Fresh football portfolio palette */
 :root {
   --lk-primary: #020617;      /* Page background – deep stadium night */
   --lk-surface: #0f172a;      /* Main content panels / cards */
-  --lk-surface-alt: #1e293b;  /* Header / side sections */
   --lk-border: #1f3b4d;       /* Subtle cool borders */
   --lk-accent: #00c8ff;       /* Secondary accent – electric blue */
   --lk-accent-alt: #94a3b8;   /* Muted text – slate grey */
   --lk-text-main: #f9fafb;    /* Primary text – clean white */
-  --lk-text-muted:#ffc107;    /* Main accent – trophy gold */
+  --lk-text-muted: #FFD700;   /* Main accent – trophy gold */
 }
 
 html {
@@ -84,7 +83,7 @@ h6 {
 }
 
 a {
-  color: var(--lk-accent);
+  color: var(--lk-text-muted);
   text-decoration: none;
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
@@ -94,7 +93,7 @@ a {
 }
 
 a:hover {
-  color: #1d4ed8; /* deeper blue on hover */
+  color: var(--lk-accent);
 }
 
 p {
@@ -121,6 +120,7 @@ p {
   min-height: 100%;
   padding: 0 100px;
   overflow: hidden;
+  background-color: #363636;
 }
 
 .page-content {
@@ -140,7 +140,7 @@ p {
   backface-visibility: hidden;
 }
 
-/* buttons */
+/* Buttons */
 .btn-primary,
 .btn-secondary,
 button,
@@ -159,7 +159,7 @@ input[type="submit"],
   border: 2px solid var(--lk-accent);
   color: #eff6ff;
   text-shadow: none;
-  background-color: var(--lk-surface-alt);
+  background-color: var(--lk-surface);
   border-radius: 30px;
   font-family: "Poppins", sans-serif;
   text-transform: uppercase;
@@ -217,7 +217,7 @@ input[type="submit"]:focus {
 }
 
 /* ============================================================================= 
-3. Page loading animation
+2. Page loading animation
 ============================================================================= */
 .no-js .preloader,
 .no-js .preloader-portfolio {
@@ -280,7 +280,7 @@ input[type="submit"]:focus {
 }
 
 /* ------------------------------------------------------------
-4. Header
+3. Header
 ------------------------------------------------------------ */
 @media only screen and (min-width: 1025px) {
   .header {
@@ -294,6 +294,7 @@ input[type="submit"]:focus {
     padding: 70px 30px 45px;
     overflow: auto;
     background: #ffc107; /* trophy gold header background */
+    border-radius: 30px 0 0 30px;
     border-right: 1px solid var(--lk-border);
     -webkit-transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
@@ -312,7 +313,7 @@ input[type="submit"]:focus {
     padding: 15px 0;
     width: 70px;
     right: -90px;
-    background-color: var(--lk-surface-alt);
+    background-color: var(--lk-surface);
     border-radius: 35px;
     z-index: 999;
     list-style: none;
@@ -383,7 +384,7 @@ input[type="submit"]:focus {
   padding: 10px 0;
   width: 60px;
   right: -80px;
-  background-color: var(--lk-surface-alt);
+  background-color: var(--lk-surface);
   border-radius: 35px;
   z-index: 98;
   list-style: none;
@@ -466,7 +467,7 @@ input[type="submit"]:focus {
   font-size: 36px;
   margin: 5px 0 7px;
   line-height: 1.2em;
-  font-family: "Bebas Neue", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 900;
   font-style: normal;
   color: #f9fafb;
@@ -529,7 +530,7 @@ input[type="submit"]:focus {
 }
 
 /* ------------------------------------------------------------
-5. Page Content
+4. Page Content
 ------------------------------------------------------------ */
 .content-area {
   position: absolute;
@@ -556,7 +557,6 @@ input[type="submit"]:focus {
   background-color: var(--lk-surface);
   height: 100%;
   width: 100%;
-  border-radius: 30px;
   padding: 60px;
   opacity: 0;
   overflow: auto;
@@ -599,7 +599,7 @@ input[type="submit"]:focus {
 }
 
 .ps > .ps__scrollbar-y-rail > .ps__scrollbar-y {
-  background-color: #cbd5e1;
+  background-color: var(--lk-text-muted);
 }
 
 .ps:hover > .ps__scrollbar-y-rail:hover > .ps__scrollbar-y {
@@ -632,11 +632,11 @@ input[type="submit"]:focus {
   z-index: 1;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-family: "Bebas Neue", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .page-title h2 span {
-  color: var(--lk-accent);
+  color: var(--lk-text-muted);
 }
 
 .page-title:after {
@@ -675,7 +675,7 @@ input[type="submit"]:focus {
 }
 
 /* ------------------------------------------------------------
-6. Elements
+5. Elements
 ------------------------------------------------------------ */
 .block-title {
   display: inline-block;
@@ -694,7 +694,7 @@ input[type="submit"]:focus {
 }
 
 .block-title h3 span {
-  color: var(--lk-accent);
+  color: var(--lk-text-muted);
 }
 
 .cc-text ul {
@@ -812,11 +812,12 @@ h4 {
 }
 
 .portfolio-grid figure {
-  width: 33.33333%;
-  float: left;
+  display: block;
+  position: relative;
+  width: 100%;
   padding: 7px;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .portfolio-grid.one-column figure {
@@ -839,6 +840,30 @@ h4 {
   width: 20%;
 }
 
+/* Base media container – same size for all tiles */
+.portfolio-item-img {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  background: #020617;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Make all inner media fill the box */
+.portfolio-item-img img,
+.portfolio-item-img iframe,
+.portfolio-item-img video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border: 0;
+}
+
+/* Generic image rule (kept for safety) */
 .portfolio-grid img {
   position: relative;
   display: block;
@@ -872,11 +897,7 @@ h4 {
   z-index: 3;
 }
 
-.portfolio-item-img {
-  position: relative;
-  overflow: hidden;
-}
-
+/* Hover overlay */
 .portfolio-grid figure .portfolio-item-img:after {
   content: "";
   position: absolute;
@@ -909,26 +930,47 @@ h4 {
   color: var(--lk-text-muted);
 }
 
-.portfolio-grid figure .image {
+/* Text label: "Image" / "YouTube Video" */
+.portfolio-grid figure .category {
   display: inline-block;
+  padding: 4px 10px;
+  background-color: rgba(15, 23, 42, 0.9);
+  color: var(--lk-text-main);
+  font-size: 11px;
+  line-height: 1.2em;
+  top: 10px;
+  left: 10px;
   position: absolute;
-  top: 15px;
-  right: 15px;
-  font-size: 16px;
-  opacity: 0;
-  width: 30px;
-  height: 30px;
-  background-color: var(--lk-surface-alt);
-  color: var(--lk-accent);
-  text-align: center;
-  line-height: 30px;
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  -ms-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+  opacity: 1;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  z-index: 4;
 }
 
+/* Icon on the right inside the tile */
+.portfolio-grid figure .lz-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 4;
+  font-size: 20px;
+  padding: 6px;
+  background: rgba(15, 23, 42, 0.9);
+  color: var(--lk-accent);
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Slight hover lift for icon */
+.portfolio-grid figure:hover .lz-icon {
+  background: rgba(15, 23, 42, 1);
+  transform: translateY(-1px);
+}
+
+/* Optional name fade-in if you ever add titles under tiles */
 .portfolio-grid figure .name {
   display: block;
   padding: 15px 0;
@@ -936,33 +978,13 @@ h4 {
   position: relative;
 }
 
-.portfolio-grid figure .category {
-  display: inline-block;
-  padding: 2px 7px;
-  background-color: var(--lk-surface-alt);
-  color: var(--lk-accent);
-  font-size: 11px;
-  line-height: 1.2em;
-  top: 15px;
-  left: 15px;
-  position: absolute;
-  opacity: 0;
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  -ms-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-}
-
-.portfolio-grid figure:hover i,
-.portfolio-grid figure:hover .name,
-.portfolio-grid figure:hover .category {
+.portfolio-grid figure:hover .name {
   opacity: 1;
 }
 /* --- End of Portfolio --- */
 
 /* ------------------------------------------------------------
-7. Media Queries
+6. Media Queries
 ------------------------------------------------------------ */
 @media only screen and (max-width: 1280px) {
   .page {
@@ -975,6 +997,71 @@ h4 {
 
   .content-area {
     max-width: calc(100% - 330px);
+  }
+}
+
+/* -----------------------------------------------------------------
+   Custom overrides for responsive behaviour and portfolio layout
+   - Display portfolio items in a two-column grid without relying on JS.
+   - Only show the category label and action icon when hovering.
+   - Hide navigation icons on small screens and keep the sidebar visible.
+------------------------------------------------------------------ */
+/* Portfolio grid: two-column layout using CSS Grid */
+.portfolio-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+/* Ensure portfolio items take full width inside the grid */
+.portfolio-grid figure {
+  width: 100% !important;
+  padding: 0 !important;
+}
+
+/*
+ * Portfolio tile overlays
+ *
+ * By default, hide the category label and action icon on each portfolio figure
+ * until the user hovers over it. Both elements are initially invisible and
+ * translated slightly upwards; when hovering over the figure their opacity
+ * transitions to 1 and they shift into place.
+ */
+.portfolio-grid figure .category {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: translateY(-5px) !important;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.portfolio-grid figure .lz-icon {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: translateY(-5px) !important;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* When hovering over a portfolio item, reveal the label and icon */
+.portfolio-grid figure:hover .category {
+  display: inline-block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+}
+
+.portfolio-grid figure:hover .lz-icon {
+  display: inline-flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+}
+
+@media only screen and (max-width: 1024px) {
+  /* Hide icons inside the navigation on mobile view if desired */
+  .main-menu .material-symbols-outlined {
+    display: none;
   }
 }
 
@@ -992,7 +1079,7 @@ h4 {
     top: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--lk-surface);
+    background-color: var(--lk-text-muted);
     z-index: 99;
     padding: 30px 30px 10px 30px;
     text-align: center;
@@ -1084,6 +1171,7 @@ h4 {
   ul.main-menu .link-text {
     font-size: 16px;
     line-height: 21px;
+    color: var(--lk-surface);
   }
 
   .menu-toggle {
@@ -1314,7 +1402,7 @@ h4 {
 }
 
 /* ============================================================================= 
-8. Updates
+7. Updates
 ============================================================================= */
 
 .lm-animated-bg {
@@ -1398,13 +1486,13 @@ h4 {
   line-height: 74px;
   margin: 0;
   text-align: center;
-  font-family: "Bebas Neue", sans-serif;
+  font-family: "Poppins", sans-serif;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .title-block .sp-subtitle {
-  color: var(--lk-accent);
+  color: var(--lk-text-muted);
   font-size: 30px;
   font-weight: 600;
   margin: 5px 0;
@@ -1445,6 +1533,7 @@ h4 {
 }
 
 .player-stat:hover {
+  background: var(--lk-primary);
   -webkit-transform: translateY(-5px);
   -ms-transform: translateY(-5px);
   -o-transform: translateY(-5px);
@@ -1455,22 +1544,22 @@ h4 {
 }
 
 .player-stat.gray-bg {
-  background-color: var(--lk-surface);
+  background-color: var(--lk-text-main);
 }
 
 .player-stat h4 {
-  font-size: 16px;
+  font-size: 12px;
   margin: 15px;
   font-family: "Poppins", sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--lk-text-muted);
+  color: var(--lk-text-main);
 }
 
 .player-stat .pl {
   position: relative;
-  font-size: 33px;
-  color: var(--lk-accent);
+  font-size: 35px;
+  color: var(--lk-text-muted);
   margin-bottom: 6px;
   width: 33px;
   height: 33px;
@@ -1485,7 +1574,7 @@ h4 {
 }
 
 .player-stat-block-value {
-  color: var(--lk-accent);
+  color: var(--lk-text-muted);
   font-size: 36px;
   line-height: 50px;
   display: block;
