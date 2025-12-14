@@ -1059,9 +1059,23 @@ h4 {
 }
 
 @media only screen and (max-width: 1024px) {
-  /* Hide icons inside the navigation on mobile view if desired */
+  /* Show icons inside the navigation on mobile view and adjust size */
   .main-menu .material-symbols-outlined {
-    display: none;
+    display: inline-block;
+    font-size: 20px;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+
+  /* Adjust portfolio overlay label and icon sizes for small screens */
+  .portfolio-grid figure .category {
+    font-size: 10px !important;
+    padding: 4px 8px !important;
+  }
+
+  .portfolio-grid figure .lz-icon {
+    font-size: 16px !important;
+    padding: 4px !important;
   }
 }
 
@@ -1626,6 +1640,21 @@ h4 {
   color: var(--lk-text-muted);
   border-left: 3px solid var(--lk-accent);
   padding-left: 0.9rem;
+}
+
+/*
+ * Bold navigation and copyright
+ *
+ * Make the navigation link text and copyright notice bold across
+ * all screen sizes. This improves readability and emphasis on
+ * important labels.
+ */
+ul.main-menu .link-text {
+  font-weight: 700;
+}
+
+.copyrights {
+  font-weight: 700;
 }
 
 /* ------------------------------------------------------------

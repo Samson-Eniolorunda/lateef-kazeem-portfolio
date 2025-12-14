@@ -102,23 +102,26 @@
     //--------------------------------------------------
     $(document).on('ready', function () {
         // Parallax mouse move effect for the animated background
-        var movementStrength = 23;
-        var height = movementStrength / $(document).height();
-        var width = movementStrength / $(document).width();
-        $("body").on('mousemove', function (e) {
-            var pageX = e.pageX - ($(document).width() / 2),
-                pageY = e.pageY - ($(document).height() / 2),
-                newvalueX = width * pageX * -1,
-                newvalueY = height * pageY * -1,
-                elements = $('.lm-animated-bg');
-            elements.addClass('transition');
-            elements.css({
-                "background-position": "calc( 50% + " + newvalueX + "px ) calc( 50% + " + newvalueY + "px )",
+        // Only enable parallax on larger screens to prevent glitchy behaviour on small devices
+        if ($(window).width() > 1024) {
+            var movementStrength = 23;
+            var height = movementStrength / $(document).height();
+            var width = movementStrength / $(document).width();
+            $("body").on('mousemove', function (e) {
+                var pageX = e.pageX - ($(document).width() / 2),
+                    pageY = e.pageY - ($(document).height() / 2),
+                    newvalueX = width * pageX * -1,
+                    newvalueY = height * pageY * -1,
+                    elements = $('.lm-animated-bg');
+                elements.addClass('transition');
+                elements.css({
+                    "background-position": "calc( 50% + " + newvalueX + "px ) calc( 50% + " + newvalueY + "px )",
+                });
+                setTimeout(function () {
+                    elements.removeClass('transition');
+                }, 300);
             });
-            setTimeout(function () {
-                elements.removeClass('transition');
-            }, 300);
-        });
+        }
 
         // Toggle sidebar visibility on burger menu click
         $('.menu-toggle').on('click', function () {
@@ -182,6 +185,10 @@
                 }
             }
         });
+
+        // Update the copyright year automatically
+        var currentYear = new Date().getFullYear();
+        $('#copyright-year').text(currentYear);
     });
 
 })(jQuery);
