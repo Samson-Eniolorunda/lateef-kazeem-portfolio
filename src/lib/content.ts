@@ -132,7 +132,7 @@ export const media: readonly MediaItem[] = [
     src: "/img/highlight.jpg",
     width: 1072,
     height: 604,
-    alt: "Victory FC players in pink celebrating a goal; the score reads Victory 2, Cha 0. Plays the YouTube highlight",
+    alt: "Victory FC players in pink celebrating a goal, leading 2–0. Plays the YouTube highlight",
     youtubeId: "rjg0Gb7vKhE",
   },
 ];

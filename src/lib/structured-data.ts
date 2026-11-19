@@ -13,7 +13,7 @@ export function personJsonLd() {
     image: `${siteUrl}${portrait.src}`,
     birthDate: "2007-02-08",
     nationality: { "@type": "Country", name: "Nigeria" },
-    birthPlace: { "@type": "Place", name: "Lagos State, Nigeria" },
+    birthPlace: { "@type": "Place", name: "Lagos State" },
     height: { "@type": "QuantitativeValue", value: 1.95, unitCode: "MTR" },
     weight: { "@type": "QuantitativeValue", value: 70, unitCode: "KGM" },
   };
