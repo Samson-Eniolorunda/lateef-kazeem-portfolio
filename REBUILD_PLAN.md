@@ -65,7 +65,7 @@ P-21 Contact form (new)
 1. [DONE] Scaffold: Next.js, TS strict, Tailwind, lint, format, tests, CI-free scripts; move assets; commit.
 2. [DONE] Design system: tokens, type scale, spacing, light/dark, button and layout primitives.
 3. [DONE] Content layer: typed data file holding every item in section 2; unit tests asserting counts.
-4. Sections: header/nav, hero, about, stats, experience, achievements, portfolio with lightbox and filters.
+4. [DONE] Sections: header/nav, hero, about, stats, experience, achievements, portfolio with lightbox and filters.
 5. Contact module and form, validation, honeypot, rate limit hook, tests.
 6. SEO: metadata, Open Graph image, sitemap, robots, JSON-LD (Person, athlete), security headers.
 7. Images and performance: resized AVIF/WebP, fonts, Lighthouse mobile.
@@ -87,4 +87,5 @@ P-21 Contact form (new)
 - Phase 1 done: Next.js 16, React 19, Tailwind 4, TS strict; format, lint (0 warnings), typecheck, unit, build and e2e (6 viewports) pass. Run e2e with `PW_CHROMIUM=/opt/pw-browsers/chromium npm run e2e`. Legacy site kept under `legacy/` for parity reference; delete in final phase.
 - Phase 2 done: tokens (light, dark, one green accent), Geist font (self-hosted package), 4px spacing, type scale, Button, LinkButton, ButtonRow (secondary left, primary right), Section. Gates pass.
 - Phase 3 done: `src/lib/content.ts` holds all content verbatim; tests assert counts and that achievements sum to the stats (22 goals, 33 matches).
-- Next: Phase 4 (sections).
+- Phase 4 done: header with theme toggle, hero, about, stats, resume, portfolio (filters, native dialog lightbox, privacy-enhanced YouTube), footer. e2e: no sideways scroll, button order, filters, lightbox at six sizes. Note: full-page screenshots show lazy photos blank (capture artefact; images verified loading).
+- Next: Phase 5 (contact module and form; nav and hero already link to #contact).

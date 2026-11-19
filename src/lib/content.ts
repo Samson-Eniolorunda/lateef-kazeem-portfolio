@@ -63,15 +63,17 @@ export const experience = [
 
 export const achievements = [
   {
+    lead: "Scored",
     highlight: "6 goals in 9 matches",
     text: "in the Nationwide League One (NLO) 2023/2024 season.",
   },
   {
+    lead: "Finished as",
     highlight: "second highest goal scorer",
     text: "with 4 goals in 7 matches at the Obasa Games 2024.",
-    lead: "Finished as",
   },
   {
+    lead: "Recorded",
     highlight: "12 goals in 17 matches",
     text: "in the Nationwide League One (NLO) 2024/2025 season.",
   },
