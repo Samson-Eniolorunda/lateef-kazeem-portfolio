@@ -68,7 +68,7 @@ P-21 Contact form (new)
 4. [DONE] Sections: header/nav, hero, about, stats, experience, achievements, portfolio with lightbox and filters.
 5. [DONE] Contact module and form, validation, honeypot, rate limit hook, tests.
 6. [DONE] SEO: metadata, Open Graph image, sitemap, robots, JSON-LD (Person, athlete), security headers.
-7. Images and performance: resized AVIF/WebP, fonts, Lighthouse mobile.
+7. [DONE] Images and performance: resized AVIF/WebP, fonts, Lighthouse mobile.
 8. Accessibility and e2e: Playwright at 360, 390, 430, 768, 1280, 1536; axe; screenshots light and dark.
 9. Final: REBUILD_STATUS.md, parity count, verdict.
 
@@ -91,3 +91,4 @@ P-21 Contact form (new)
 - Phase 5 done: `src/lib/contact/` (validate, rate-limit, send, handle), `/api/contact` route, form with honeypot and accessible errors, `.env.example` (names only), 9 unit tests, e2e with mocked API. Without env vars the API returns 503 (never calls a real service). Gates pass (36 e2e).
 - Phase 6 done: metadata, canonical, Open Graph and Twitter, generated OG image, sitemap, robots, Person JSON-LD, security headers incl. CSP. `NEXT_PUBLIC_SITE_URL` (needs owner: domain) sets the origin. Gates pass (42 e2e, 16 unit).
 - Next: Phase 7 (images and performance, Lighthouse mobile).
+- Phase 7 done: next/image serves AVIF and WebP with long cache; hero image prioritised, gallery lazy, sizes set. Lighthouse (local production build, Lighthouse CLI): mobile 96 performance (LCP 2.7 s, CLS 0, TBT 120 ms), 100 accessibility, 100 best practices, 100 SEO; desktop 100 in all four.
