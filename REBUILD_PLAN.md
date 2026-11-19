@@ -38,27 +38,27 @@ Next.js (App Router), React, TypeScript strict, Tailwind CSS, `next/image`, `nex
 
 ## 4. Parity checklist (tick when verified)
 
-P-01 Name and role headline
-P-02 Meta description and title text
-P-03 About paragraph
-P-04 Nine profile facts
-P-05 Six core competencies
-P-06 Three stats
-P-07 Scout note
-P-08 Four experience entries
-P-09 Three achievements
-P-10 Four photographs, optimised, with alt text
-P-11 Photo lightbox (accessible, keyboard)
-P-12 YouTube video (privacy-enhanced, click to load)
-P-13 Portfolio filters
-P-14 Portrait
-P-15 CV download
-P-16 Four organisation logos (needs owner: permission)
-P-17 Favicon
-P-18 Copyright line (year computed)
-P-19 Section navigation (desktop and phone)
-P-20 Light and dark themes (new)
-P-21 Contact form (new)
+- [x] P-01 Name and role headline
+- [x] P-02 Meta description and title text
+- [x] P-03 About paragraph
+- [x] P-04 Nine profile facts
+- [x] P-05 Six core competencies
+- [x] P-06 Three stats
+- [x] P-07 Scout note
+- [x] P-08 Four experience entries
+- [x] P-09 Three achievements
+- [x] P-10 Four photographs, optimised, with alt text
+- [x] P-11 Photo lightbox (accessible, keyboard)
+- [x] P-12 YouTube video (privacy-enhanced, click to load)
+- [x] P-13 Portfolio filters
+- [x] P-14 Portrait
+- [x] P-15 CV download
+- [x] P-16 Four organisation logos (needs owner: permission)
+- [x] P-17 Favicon
+- [x] P-18 Copyright line (year computed)
+- [x] P-19 Section navigation (desktop and phone)
+- [x] P-20 Light and dark themes (new)
+- [x] P-21 Contact form (new)
 
 ## 5. Phases
 
@@ -69,8 +69,8 @@ P-21 Contact form (new)
 5. [DONE] Contact module and form, validation, honeypot, rate limit hook, tests.
 6. [DONE] SEO: metadata, Open Graph image, sitemap, robots, JSON-LD (Person, athlete), security headers.
 7. [DONE] Images and performance: resized AVIF/WebP, fonts, Lighthouse mobile.
-8. Accessibility and e2e: Playwright at 360, 390, 430, 768, 1280, 1536; axe; screenshots light and dark.
-9. Final: REBUILD_STATUS.md, parity count, verdict.
+8. [DONE] Accessibility and e2e: Playwright at 360, 390, 430, 768, 1280, 1536; axe; screenshots light and dark.
+9. [DONE] Final: REBUILD_STATUS.md, parity count, verdict.
 
 ## 6. Needs owner
 
