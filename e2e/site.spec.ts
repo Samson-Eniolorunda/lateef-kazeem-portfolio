@@ -14,17 +14,35 @@ test("renders all sections without sideways scroll", async ({ page }) => {
 
 test("hero buttons: secondary left, primary right, same row", async ({ page }) => {
   await page.goto("/");
-  const secondary = await page
+  const secondaryLink = page
     .locator("#top")
-    .getByRole("link", { name: "Contact", exact: true })
-    .boundingBox();
+    .getByRole("link", { name: "Contact", exact: true });
+  const secondary = await secondaryLink.boundingBox();
   const primary = await page
     .getByRole("link", { name: "Download Player CV" })
     .boundingBox();
-  expect(secondary && primary).toBeTruthy();
+  const row = await secondaryLink.locator("..").boundingBox();
+  expect(secondary && primary && row).toBeTruthy();
   expect(secondary!.x).toBeLessThan(primary!.x);
+  expect(Math.abs(secondary!.x - row!.x)).toBeLessThan(1);
+  expect(Math.abs(primary!.x + primary!.width - (row!.x + row!.width))).toBeLessThan(1);
   expect(Math.abs(secondary!.y - primary!.y)).toBeLessThan(2);
   expect(primary!.height).toBeGreaterThanOrEqual(44);
+});
+
+test("old static addresses redirect permanently", async ({ request }) => {
+  const cases: [string, string][] = [
+    ["/assets/cv/Lateef-Kazeem-CV.pdf", "/cv/Lateef-Kazeem-CV.pdf"],
+    ["/assets/img/lateef-1.jpg", "/img/lateef-1.jpg"],
+    ["/index.html", "/"],
+  ];
+  for (const [from, to] of cases) {
+    const res = await request.get(from, { maxRedirects: 0 });
+    expect(res.status()).toBe(308);
+    expect(new URL(res.headers()["location"]!, "http://localhost:3000").pathname).toBe(
+      to,
+    );
+  }
 });
 
 test("portfolio filters and lightbox", async ({ page }) => {

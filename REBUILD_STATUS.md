@@ -27,6 +27,18 @@ Mobile: performance 96, accessibility 100, best practices 100, SEO 100 (LCP 2.7 
 
 Reviewed 390 px screenshots in light and dark: single column, no overflow, 44 px buttons, secondary left and primary right on one row, readable type. Not tested on real devices; only emulated Chromium. The mobile LCP (2.7 s) is the hero photograph; a smaller or pre-cropped portrait would improve it.
 
+## Review fixes
+
+- Site address: `NEXT_PUBLIC_SITE_URL` (empty ignored, `https://` added, trailing slash removed), then `VERCEL_PROJECT_PRODUCTION_URL`, then `VERCEL_URL`, then localhost.
+- Button rows: one button on the right; two or more split to the left and right edges on every width (asserted in e2e).
+- Permanent redirects from the old static addresses (`/assets/cv/...`, `/assets/img/...`, `/index.html`).
+- Contact form: the server checks the `CONTACT_*` variables when the page is built and the form shows a notice and is disabled when they are missing. Changing the variables therefore needs a new deployment. The API still returns 503 with clear wording.
+- Contact limiter: expired entries are removed, only valid submissions count, and requests with no client address share a larger allowance. **Before the `CONTACT_*` variables are set, add a Vercel Firewall rate-limit rule for `POST /api/contact` or move the limiter to a shared store; the in-memory limiter is per server instance and best effort only.**
+- Names are stripped of control characters (including CR and LF) before use in the e-mail subject.
+- The footer year is corrected in the browser.
+- Preview deployments allow the Vercel toolbar hosts in the content security policy; production is unchanged. HSTS keeps `max-age` only (no `preload` or `includeSubDomains` until a domain is chosen).
+- `engines.node` set to 24.x; highlight alt text no longer uses the scoreboard abbreviation; birthplace in structured data matches the page ("Lagos State").
+
 ## Needed from the owner
 
 - Contact email address and delivery provider with its env values (names in `.env.example`).
