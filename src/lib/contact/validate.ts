@@ -16,11 +16,16 @@ function text(v: unknown): string {
   return typeof v === "string" ? v.trim() : "";
 }
 
+/** Replaces control characters (including CR and LF) so a name cannot inject e-mail headers. */
+function singleLine(v: string): string {
+  return v.replace(/[\u0000-\u001f\u007f-\u009f\u2028\u2029]+/g, " ").trim();
+}
+
 /** Validates a contact submission. `website` is a honeypot: humans leave it empty. */
 export function validateContact(raw: unknown): ValidationResult {
   const o = (raw && typeof raw === "object" ? raw : {}) as Record<string, unknown>;
   const value: ContactInput = {
-    name: text(o.name),
+    name: singleLine(text(o.name)),
     email: text(o.email),
     message: text(o.message),
     website: text(o.website),

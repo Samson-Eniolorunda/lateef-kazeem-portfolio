@@ -15,6 +15,12 @@ export default defineConfig({
     command: "npm run build && npm run start",
     url: "http://localhost:3000",
     reuseExistingServer: true,
+    // Dummy values so the form is enabled; the tests mock /api/contact and never send.
+    env: {
+      CONTACT_PROVIDER_API_KEY: "e2e-dummy",
+      CONTACT_TO_EMAIL: "e2e@invalid.test",
+      CONTACT_FROM_EMAIL: "e2e@invalid.test",
+    },
     timeout: 240_000,
   },
   use: {

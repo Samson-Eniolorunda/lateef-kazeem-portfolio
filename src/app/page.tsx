@@ -1,3 +1,4 @@
+import { isContactConfigured } from "@/lib/contact/send";
 import { About } from "@/components/about";
 import { Contact } from "@/components/contact";
 import { Hero } from "@/components/hero";
@@ -15,7 +16,7 @@ export default function Home() {
         <About />
         <Resume />
         <Portfolio />
-        <Contact />
+        <Contact available={isContactConfigured()} />
       </main>
       <SiteFooter />
     </>

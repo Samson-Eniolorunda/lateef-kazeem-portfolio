@@ -10,7 +10,7 @@ type Errors = Partial<Record<"name" | "email" | "message", string>>;
 const field =
   "border-border bg-surface text-text focus-visible:outline-accent mt-1 block min-h-11 w-full rounded-md border px-3 py-2 text-base";
 
-export function Contact() {
+export function Contact({ available }: { available: boolean }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Errors>({});
   const [message, setMessage] = useState("");
@@ -48,79 +48,89 @@ export function Contact() {
       <p className="text-muted mb-8 max-w-prose">
         For trials, academy pathways or match footage, send a message below.
       </p>
-      <form onSubmit={onSubmit} noValidate className="max-w-xl space-y-5">
-        <div>
-          <label htmlFor="c-name" className="text-sm font-medium">
-            Name
-          </label>
-          <input
-            id="c-name"
-            name="name"
-            autoComplete="name"
-            required
-            aria-invalid={!!errors.name}
-            aria-describedby={errors.name ? "c-name-err" : undefined}
-            className={field}
-          />
-          {errors.name && (
-            <p id="c-name-err" className="text-sm text-red-700 dark:text-red-400">
-              {errors.name}
-            </p>
-          )}
-        </div>
-        <div>
-          <label htmlFor="c-email" className="text-sm font-medium">
-            Email
-          </label>
-          <input
-            id="c-email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            aria-invalid={!!errors.email}
-            aria-describedby={errors.email ? "c-email-err" : undefined}
-            className={field}
-          />
-          {errors.email && (
-            <p id="c-email-err" className="text-sm text-red-700 dark:text-red-400">
-              {errors.email}
-            </p>
-          )}
-        </div>
-        <div>
-          <label htmlFor="c-message" className="text-sm font-medium">
-            Message
-          </label>
-          <textarea
-            id="c-message"
-            name="message"
-            rows={5}
-            required
-            aria-invalid={!!errors.message}
-            aria-describedby={errors.message ? "c-message-err" : undefined}
-            className={field}
-          />
-          {errors.message && (
-            <p id="c-message-err" className="text-sm text-red-700 dark:text-red-400">
-              {errors.message}
-            </p>
-          )}
-        </div>
-        <div aria-hidden="true" className="absolute -left-[9999px]">
-          <label>
-            Website
-            <input name="website" tabIndex={-1} autoComplete="off" />
-          </label>
-        </div>
-        <p role="status" aria-live="polite" className="min-h-6 text-sm">
-          {status === "sent" || status === "error" ? message : ""}
+      {!available && (
+        <p
+          role="note"
+          className="border-border bg-surface-2 text-text mb-6 max-w-xl rounded-md border px-4 py-3 text-sm"
+        >
+          The contact form is not yet available. Please return later.
         </p>
-        <ButtonRow>
-          <Button type="submit" disabled={status === "sending"}>
-            {status === "sending" ? "Sending" : "Send message"}
-          </Button>
-        </ButtonRow>
+      )}
+      <form onSubmit={onSubmit} noValidate className="max-w-xl space-y-5">
+        <fieldset disabled={!available} className="m-0 min-w-0 space-y-5 border-0 p-0">
+          <div>
+            <label htmlFor="c-name" className="text-sm font-medium">
+              Name
+            </label>
+            <input
+              id="c-name"
+              name="name"
+              autoComplete="name"
+              required
+              aria-invalid={!!errors.name}
+              aria-describedby={errors.name ? "c-name-err" : undefined}
+              className={field}
+            />
+            {errors.name && (
+              <p id="c-name-err" className="text-sm text-red-700 dark:text-red-400">
+                {errors.name}
+              </p>
+            )}
+          </div>
+          <div>
+            <label htmlFor="c-email" className="text-sm font-medium">
+              Email
+            </label>
+            <input
+              id="c-email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              required
+              aria-invalid={!!errors.email}
+              aria-describedby={errors.email ? "c-email-err" : undefined}
+              className={field}
+            />
+            {errors.email && (
+              <p id="c-email-err" className="text-sm text-red-700 dark:text-red-400">
+                {errors.email}
+              </p>
+            )}
+          </div>
+          <div>
+            <label htmlFor="c-message" className="text-sm font-medium">
+              Message
+            </label>
+            <textarea
+              id="c-message"
+              name="message"
+              rows={5}
+              required
+              aria-invalid={!!errors.message}
+              aria-describedby={errors.message ? "c-message-err" : undefined}
+              className={field}
+            />
+            {errors.message && (
+              <p id="c-message-err" className="text-sm text-red-700 dark:text-red-400">
+                {errors.message}
+              </p>
+            )}
+          </div>
+          <div aria-hidden="true" className="absolute -left-[9999px]">
+            <label>
+              Website
+              <input name="website" tabIndex={-1} autoComplete="off" />
+            </label>
+          </div>
+          <p role="status" aria-live="polite" className="min-h-6 text-sm">
+            {status === "sent" || status === "error" ? message : ""}
+          </p>
+          <ButtonRow>
+            <Button type="submit" disabled={!available || status === "sending"}>
+              {status === "sending" ? "Sending" : "Send message"}
+            </Button>
+          </ButtonRow>
+        </fieldset>
       </form>
     </Section>
   );
