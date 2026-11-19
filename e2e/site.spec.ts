@@ -1,0 +1,130 @@
+import { expect, test } from "@playwright/test";
+
+test("renders all sections without sideways scroll", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Lateef Kazeem");
+  for (const name of ["About", "Resume", "Portfolio"]) {
+    await expect(page.getByRole("heading", { level: 2, name })).toBeVisible();
+  }
+  const overflow = await page.evaluate(
+    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+  );
+  expect(overflow).toBeLessThanOrEqual(0);
+});
+
+test("hero buttons: secondary left, primary right, same row", async ({ page }) => {
+  await page.goto("/");
+  const secondaryLink = page
+    .locator("#top")
+    .getByRole("link", { name: "Contact", exact: true });
+  const secondary = await secondaryLink.boundingBox();
+  const primary = await page
+    .getByRole("link", { name: "Download Player CV" })
+    .boundingBox();
+  const row = await secondaryLink.locator("..").boundingBox();
+  expect(secondary && primary && row).toBeTruthy();
+  expect(secondary!.x).toBeLessThan(primary!.x);
+  expect(Math.abs(secondary!.x - row!.x)).toBeLessThan(1);
+  expect(Math.abs(primary!.x + primary!.width - (row!.x + row!.width))).toBeLessThan(1);
+  expect(Math.abs(secondary!.y - primary!.y)).toBeLessThan(2);
+  expect(primary!.height).toBeGreaterThanOrEqual(44);
+});
+
+test("old static addresses redirect permanently", async ({ request }) => {
+  const cases: [string, string][] = [
+    ["/assets/cv/Lateef-Kazeem-CV.pdf", "/cv/Lateef-Kazeem-CV.pdf"],
+    ["/assets/img/lateef-1.jpg", "/img/lateef-1.jpg"],
+    ["/index.html", "/"],
+  ];
+  for (const [from, to] of cases) {
+    const res = await request.get(from, { maxRedirects: 0 });
+    expect(res.status()).toBe(308);
+    expect(new URL(res.headers()["location"]!, "http://localhost:3000").pathname).toBe(
+      to,
+    );
+  }
+});
+
+test("portfolio filters and lightbox", async ({ page }) => {
+  await page.goto("/");
+  const grid = page.locator("#portfolio ul").last();
+  await expect(grid.locator("li")).toHaveCount(5);
+  await page.getByRole("button", { name: "YouTube Videos" }).click();
+  await expect(grid.locator("li")).toHaveCount(1);
+  await page.getByRole("button", { name: "Player Images" }).click();
+  await expect(grid.locator("li")).toHaveCount(4);
+  await grid.locator("button").first().click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("dialog")).toBeHidden();
+});
+
+test("contact form validates and submits (mocked API)", async ({ page }) => {
+  await page.route("**/api/contact", async (route) => {
+    const body = route.request().postDataJSON() as { name: string };
+    if (body.name === "") {
+      await route.fulfill({
+        status: 400,
+        json: {
+          ok: false,
+          error: "Check the highlighted fields.",
+          errors: { name: "Enter your name (2 to 100 characters)." },
+        },
+      });
+    } else {
+      await route.fulfill({ status: 200, json: { ok: true } });
+    }
+  });
+  await page.goto("/#contact");
+  const form = page.locator("#contact form");
+  await form.getByRole("button", { name: "Send message" }).click();
+  await expect(form.getByText("Enter your name")).toBeVisible();
+  await form.getByLabel("Name").fill("Ada Obi");
+  await form.getByLabel("Email").fill("ada@example.com");
+  await form.getByLabel("Message").fill("Interested in a trial.");
+  await form.getByRole("button", { name: "Send message" }).click();
+  await expect(page.getByRole("status")).toContainText("has been sent");
+  const overflow = await page.evaluate(
+    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+  );
+  expect(overflow).toBeLessThanOrEqual(0);
+});
+
+for (const scheme of ["light", "dark"] as const) {
+  test(`screenshot ${scheme}`, async ({ page }, info) => {
+    await page.emulateMedia({ colorScheme: scheme });
+    await page.goto("/");
+    await page.evaluate(async () => {
+      for (let y = 0; y < document.body.scrollHeight; y += 600) {
+        window.scrollTo(0, y);
+        await new Promise((r) => setTimeout(r, 60));
+      }
+      window.scrollTo(0, 0);
+    });
+    await page.waitForLoadState("networkidle");
+    await page.screenshot({
+      path: `screenshots/${info.project.name}-${scheme}.png`,
+      fullPage: true,
+    });
+  });
+}
+
+test("SEO metadata, structured data, robots, sitemap and security headers", async ({
+  page,
+  request,
+}) => {
+  const response = await page.goto("/");
+  const headers = response!.headers();
+  expect(headers["x-content-type-options"]).toBe("nosniff");
+  expect(headers["content-security-policy"]).toContain("frame-ancestors 'none'");
+  await expect(page.locator('link[rel="canonical"]')).toHaveCount(1);
+  await expect(page.locator('meta[property="og:title"]')).toHaveCount(1);
+  await expect(page.locator('meta[property="og:image"]')).toHaveCount(1);
+  const ld = await page.locator('script[type="application/ld+json"]').textContent();
+  expect(JSON.parse(ld!)["@type"]).toBe("Person");
+  expect((await request.get("/robots.txt")).ok()).toBe(true);
+  expect(await (await request.get("/sitemap.xml")).text()).toContain("<urlset");
+  expect((await request.get("/opengraph-image")).headers()["content-type"]).toContain(
+    "image/png",
+  );
+});
