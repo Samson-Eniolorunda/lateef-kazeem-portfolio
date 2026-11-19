@@ -41,6 +41,37 @@ test("portfolio filters and lightbox", async ({ page }) => {
   await expect(page.getByRole("dialog")).toBeHidden();
 });
 
+test("contact form validates and submits (mocked API)", async ({ page }) => {
+  await page.route("**/api/contact", async (route) => {
+    const body = route.request().postDataJSON() as { name: string };
+    if (body.name === "") {
+      await route.fulfill({
+        status: 400,
+        json: {
+          ok: false,
+          error: "Check the highlighted fields.",
+          errors: { name: "Enter your name (2 to 100 characters)." },
+        },
+      });
+    } else {
+      await route.fulfill({ status: 200, json: { ok: true } });
+    }
+  });
+  await page.goto("/#contact");
+  const form = page.locator("#contact form");
+  await form.getByRole("button", { name: "Send message" }).click();
+  await expect(form.getByText("Enter your name")).toBeVisible();
+  await form.getByLabel("Name").fill("Ada Obi");
+  await form.getByLabel("Email").fill("ada@example.com");
+  await form.getByLabel("Message").fill("Interested in a trial.");
+  await form.getByRole("button", { name: "Send message" }).click();
+  await expect(page.getByRole("status")).toContainText("has been sent");
+  const overflow = await page.evaluate(
+    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+  );
+  expect(overflow).toBeLessThanOrEqual(0);
+});
+
 for (const scheme of ["light", "dark"] as const) {
   test(`screenshot ${scheme}`, async ({ page }, info) => {
     await page.emulateMedia({ colorScheme: scheme });
