@@ -1,3 +1,4 @@
+import { Children } from "react";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
 
 type Variant = "primary" | "secondary";
@@ -29,7 +30,11 @@ export function LinkButton({
   return <a className={`${buttonClass(variant)} ${className}`} {...props} />;
 }
 
-/** Button row: secondary on the left, primary on the right, on every width. */
+/**
+ * Button row: one button sits on the right; with two or more, the secondary sits on
+ * the left edge and the primary on the right edge, on every width.
+ */
 export function ButtonRow({ children }: { children: React.ReactNode }) {
-  return <div className="flex flex-row justify-end gap-3">{children}</div>;
+  const justify = Children.count(children) > 1 ? "justify-between" : "justify-end";
+  return <div className={`flex flex-row ${justify} gap-3`}>{children}</div>;
 }
