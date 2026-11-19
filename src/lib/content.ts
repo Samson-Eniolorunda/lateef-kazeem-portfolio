@@ -100,7 +100,7 @@ export const media: readonly MediaItem[] = [
     src: "/img/lateef-2.jpg",
     width: 960,
     height: 1280,
-    alt: "Lateef Kazeem match photo 1",
+    alt: "Lateef Kazeem in a navy kit, number 13, standing on an artificial pitch in front of the stadium terraces",
   },
   {
     id: "photo-2",
@@ -108,7 +108,7 @@ export const media: readonly MediaItem[] = [
     src: "/img/lateef-3.jpg",
     width: 960,
     height: 1280,
-    alt: "Lateef Kazeem match photo 2",
+    alt: "Lateef Kazeem in an orange training kit, number 29, smiling beside team-mates under a tree before a session",
   },
   {
     id: "photo-3",
@@ -116,7 +116,7 @@ export const media: readonly MediaItem[] = [
     src: "/img/lateef-4.jpg",
     width: 1280,
     height: 848,
-    alt: "Lateef Kazeem match photo 3",
+    alt: "Lateef Kazeem in the pink Victory FC kit, number 5, striking the ball during a match on a dirt pitch",
   },
   {
     id: "photo-4",
@@ -124,15 +124,15 @@ export const media: readonly MediaItem[] = [
     src: "/img/lateef-5.jpg",
     width: 1280,
     height: 992,
-    alt: "Lateef Kazeem match photo 4",
+    alt: "Lateef Kazeem in a yellow and navy kit shielding the ball from an opponent on an artificial pitch",
   },
   {
     id: "video-1",
     kind: "video",
-    src: "/img/lateef-1.jpg",
-    width: 804,
-    height: 1080,
-    alt: "YouTube highlight thumbnail",
+    src: "/img/highlight.jpg",
+    width: 1072,
+    height: 604,
+    alt: "Victory FC players in pink celebrating a goal; the score reads Victory 2, Cha 0. Plays the YouTube highlight",
     youtubeId: "rjg0Gb7vKhE",
   },
 ];
