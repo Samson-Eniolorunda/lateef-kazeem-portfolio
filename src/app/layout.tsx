@@ -1,11 +1,29 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
+import { identity } from "@/lib/content";
+import { siteUrl } from "@/lib/site";
+import { personJsonLd } from "@/lib/structured-data";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Lateef Kazeem | Centre Forward | Player Profile & Highlights",
-  description:
-    "Lateef Kazeem, Nigerian centre forward (b. 2007). Strong aerial presence, clinical finishing and creative link-up play. 33 competitive matches, 22 goals and 15 assists.",
+  metadataBase: new URL(siteUrl),
+  title: identity.title,
+  description: identity.description,
+  alternates: { canonical: "/" },
+  authors: [{ name: identity.name }],
+  openGraph: {
+    type: "profile",
+    locale: "en_GB",
+    siteName: identity.name,
+    title: identity.title,
+    description: identity.description,
+    url: "/",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: identity.title,
+    description: identity.description,
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -18,7 +36,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personJsonLd()).replace(/</g, "\\u003c"),
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

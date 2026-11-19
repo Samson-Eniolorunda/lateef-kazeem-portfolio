@@ -90,3 +90,23 @@ for (const scheme of ["light", "dark"] as const) {
     });
   });
 }
+
+test("SEO metadata, structured data, robots, sitemap and security headers", async ({
+  page,
+  request,
+}) => {
+  const response = await page.goto("/");
+  const headers = response!.headers();
+  expect(headers["x-content-type-options"]).toBe("nosniff");
+  expect(headers["content-security-policy"]).toContain("frame-ancestors 'none'");
+  await expect(page.locator('link[rel="canonical"]')).toHaveCount(1);
+  await expect(page.locator('meta[property="og:title"]')).toHaveCount(1);
+  await expect(page.locator('meta[property="og:image"]')).toHaveCount(1);
+  const ld = await page.locator('script[type="application/ld+json"]').textContent();
+  expect(JSON.parse(ld!)["@type"]).toBe("Person");
+  expect((await request.get("/robots.txt")).ok()).toBe(true);
+  expect(await (await request.get("/sitemap.xml")).text()).toContain("<urlset");
+  expect((await request.get("/opengraph-image")).headers()["content-type"]).toContain(
+    "image/png",
+  );
+});
