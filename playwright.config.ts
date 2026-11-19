@@ -11,7 +11,20 @@ const sizes = [
 
 export default defineConfig({
   testDir: "e2e",
-  webServer: { command: "npm run build && npm run start", url: "http://localhost:3000", reuseExistingServer: true, timeout: 240_000 },
-  use: { baseURL: "http://localhost:3000" },
-  projects: sizes.map((s) => ({ name: s.name, use: { viewport: { width: s.width, height: s.height } } })),
+  webServer: {
+    command: "npm run build && npm run start",
+    url: "http://localhost:3000",
+    reuseExistingServer: true,
+    timeout: 240_000,
+  },
+  use: {
+    baseURL: "http://localhost:3000",
+    launchOptions: process.env.PW_CHROMIUM
+      ? { executablePath: process.env.PW_CHROMIUM }
+      : {},
+  },
+  projects: sizes.map((s) => ({
+    name: s.name,
+    use: { viewport: { width: s.width, height: s.height } },
+  })),
 });
