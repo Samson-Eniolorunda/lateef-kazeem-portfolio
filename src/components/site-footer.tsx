@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { identity, organisations } from "@/lib/content";
+import { CurrentYear } from "@/components/current-year";
 
 export function SiteFooter() {
-  const year = new Date().getFullYear();
   return (
     <footer className="border-border border-t py-10">
       <div className="mx-auto flex max-w-5xl flex-col gap-6 px-4 md:px-8">
@@ -20,7 +20,8 @@ export function SiteFooter() {
           ))}
         </ul>
         <p className="text-muted text-sm">
-          © {year} {identity.name}. All rights reserved.
+          © <CurrentYear buildYear={new Date().getFullYear()} /> {identity.name}. All
+          rights reserved.
         </p>
       </div>
     </footer>
